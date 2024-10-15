@@ -1,30 +1,52 @@
-// src/components/NavBar.tsx
 "use client";
 
 import * as React from 'react';
+import { useRouter } from 'next/navigation'; // Používame useRouter z next/router
 import Box from '@mui/material/Box';
 import BottomNavigation from '@mui/material/BottomNavigation';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
-import RestoreIcon from '@mui/icons-material/Restore';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import LocationOnIcon from '@mui/icons-material/LocationOn';
+import HomeIcon from '@mui/icons-material/Home';
+import PostAddIcon from '@mui/icons-material/PostAdd'; // Používame ikonu pre príspevky
+import PersonAddIcon from '@mui/icons-material/PersonAdd';
+import LoginIcon from '@mui/icons-material/Login';
 
 export default function SimpleBottomNavigation() {
   const [value, setValue] = React.useState(0);
+  const router = useRouter(); // Inicializácia routera
+
+  const handleNavigation = (newValue: number) => {
+    setValue(newValue);
+    switch (newValue) {
+      case 0:
+        router.push('/'); // Domov
+        break;
+      case 1:
+        router.push('/prispevok'); // Príspevky presmerujeme na /prispevok
+        break;
+      case 2:
+        router.push('/registracia'); // Registrácia
+        break;
+      case 3:
+        router.push('/prihlasenie'); // Prihlásenie
+        break;
+      default:
+        break;
+    }
+  };
 
   return (
-    <Box sx={{ width: 500 }}>
+    <Box sx={{ width: '100%' }}>
       <BottomNavigation
         showLabels
         value={value}
-        onChange={(event, newValue) => {
-          setValue(newValue);
-        }}
+        onChange={(event, newValue) => handleNavigation(newValue)} // Zavoláme handleNavigation
       >
-        <BottomNavigationAction label="Recents" icon={<RestoreIcon />} />
-        <BottomNavigationAction label="Favorites" icon={<FavoriteIcon />} />
-        <BottomNavigationAction label="Nearby" icon={<LocationOnIcon />} />
+        <BottomNavigationAction label="Domov" icon={<HomeIcon />} />
+        <BottomNavigationAction label="Príspevky" icon={<PostAddIcon />} />
+        <BottomNavigationAction label="Registrácia" icon={<PersonAddIcon />} />
+        <BottomNavigationAction label="Prihlásenie" icon={<LoginIcon />} />
       </BottomNavigation>
     </Box>
   );
 }
+
