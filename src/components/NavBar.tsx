@@ -24,10 +24,10 @@ export default function SimpleBottomNavigation() {
         router.push('/prispevok'); // Príspevky presmerujeme na /prispevok
         break;
       case 2:
-        router.push('/registracia'); // Registrácia
+        router.push('/auth/registracia'); // Registrácia
         break;
       case 3:
-        router.push('/prihlasenie'); // Prihlásenie
+        router.push('/auth/prihlasenie'); // Prihlásenie
         break;
       default:
         break;
@@ -35,7 +35,7 @@ export default function SimpleBottomNavigation() {
   };
 
   return (
-    <Box sx={{ width: '100%' }}>
+    <Box sx={{ position : "fixed" , width: "100",  left: 0 , right: 0 , bottom: 0 }}>
       <BottomNavigation
         showLabels
         value={value}
