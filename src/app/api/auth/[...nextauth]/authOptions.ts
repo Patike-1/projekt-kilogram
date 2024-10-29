@@ -1,4 +1,5 @@
 
+
 // src/app/api/auth/[...nextauth]/authOptions.ts
 
 import { NextAuthOptions } from "next-auth";
@@ -12,6 +13,7 @@ export const authOptions: NextAuthOptions = {
     }),
   ],
   secret: process.env.NEXTAUTH_SECRET,
+  debug: true,
   pages: {
     signIn: '/auth/prihlasenie',
     signOut: '/auth/odhlasenie',

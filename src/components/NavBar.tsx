@@ -1,16 +1,18 @@
+
+
 "use client";
 
 import * as React from 'react';
-import { useRouter } from 'next/navigation'; // Používame useRouter z next/router
+import { useRouter } from 'next/navigation';
 import Box from '@mui/material/Box';
 import BottomNavigation from '@mui/material/BottomNavigation';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 import HomeIcon from '@mui/icons-material/Home';
-import PostAddIcon from '@mui/icons-material/PostAdd'; // Používame ikonu pre príspevky
+import PostAddIcon from '@mui/icons-material/PostAdd';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import LoginIcon from '@mui/icons-material/Login';
 
-export default function SimpleBottomNavigation() {
+export default function NavBar() {
   const [value, setValue] = React.useState(0);
   const router = useRouter(); // Inicializácia routera
 
@@ -21,7 +23,7 @@ export default function SimpleBottomNavigation() {
         router.push('/'); // Domov
         break;
       case 1:
-        router.push('/prispevok'); // Príspevky presmerujeme na /prispevok
+        router.push('/prispevok'); // Príspevky
         break;
       case 2:
         router.push('/auth/registracia'); // Registrácia
@@ -35,7 +37,7 @@ export default function SimpleBottomNavigation() {
   };
 
   return (
-    <Box sx={{ position : "fixed" , width: "100",  left: 0 , right: 0 , bottom: 0 }}>
+    <Box sx={{ position: "fixed", width: "100%", left: 0, right: 0, bottom: 0 }}>
       <BottomNavigation
         showLabels
         value={value}
@@ -49,4 +51,3 @@ export default function SimpleBottomNavigation() {
     </Box>
   );
 }
-

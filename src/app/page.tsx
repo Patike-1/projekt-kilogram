@@ -1,21 +1,31 @@
 // src/app/page.tsx
 
 
-import  Typography  from "@mui/material/Typography";
+"use client"; // Tento riadok zabezpečuje, že komponenta je klientská
 
-export const metadata = { title: "Domov | Kilogram " };
+import { useSession } from "next-auth/react";
+import Typography from "@mui/material/Typography";
+import Link from "@mui/material/Link";
+import Container from "@mui/material/Container";
 
-export default function Home() {
-    
+export default function HomePageNeprihlaseny() {
+  const { data: session } = useSession(); // Získanie informácie o prihlásení
+
   return (
-      
-      <Typography> Domovská stranká </Typography>
-    
+    <Container maxWidth="lg" sx={{ mt: 4 }}>
+      <Typography variant="h4" gutterBottom>
+        Vitajte, 
+        {session ? (
+          // Ak je používateľ prihlásený
+          <span> {session.user?.name || "užívateľ"}, ste prihlásený.</span>
+        ) : (
+          // Ak nie je prihlásený
+          <span>
+            Prihláste sa alebo registrujte sa
+            
+          </span>
+        )}
+      </Typography>
+    </Container>
   );
 }
-
-
-
-
-
-
