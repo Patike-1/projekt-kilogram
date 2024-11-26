@@ -1,14 +1,38 @@
 
 
 // src/components/AuthView.tsx
-import Typography from "@mui/material/Typography";
+"use client";
 
-export const metadata = { title: "Domov |Kilogram - ste prihaseni " };
+import * as React from 'react';
+import BottomNavigationAction from '@mui/material/BottomNavigationAction';
+import PersonIcon from '@mui/icons-material/Person';
+import LogoutIcon from '@mui/icons-material/Logout';
+import { useRouter } from 'next/navigation';
+import { signOut } from 'next-auth/react';
 
 export default function AuthView() {
+  const router = useRouter();
+
+  const handleProfile = () => {
+    router.push('/profil'); // Presmerovanie na profil
+  };
+
+  const handleLogout = () => {
+    signOut(); // Odhlásenie používateľa
+  };
+
   return (
-    <Typography variant="h4" gutterBottom>
-      vitaj !
-    </Typography>
+    <>
+      <BottomNavigationAction
+        label="Profil"
+        icon={<PersonIcon />}
+        onClick={handleProfile} // Presmerovanie na profil
+      />
+      <BottomNavigationAction
+        label="Odhlásiť"
+        icon={<LogoutIcon />}
+        onClick={handleLogout} // Odhlásenie
+      />
+    </>
   );
 }

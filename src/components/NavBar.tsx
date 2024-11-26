@@ -9,12 +9,14 @@ import BottomNavigation from '@mui/material/BottomNavigation';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 import HomeIcon from '@mui/icons-material/Home';
 import PostAddIcon from '@mui/icons-material/PostAdd';
-import PersonAddIcon from '@mui/icons-material/PersonAdd';
-import LoginIcon from '@mui/icons-material/Login';
+import { useSession } from 'next-auth/react';
+import AuthView from '@/sections/AuthView';
+import NonAuthView from '@/sections/NonAuthView';
 
 export default function NavBar() {
   const [value, setValue] = React.useState(0);
-  const router = useRouter(); // Inicializácia routera
+  const router = useRouter();
+  const { data: session } = useSession();
 
   const handleNavigation = (newValue: number) => {
     setValue(newValue);
@@ -24,12 +26,6 @@ export default function NavBar() {
         break;
       case 1:
         router.push('/prispevok'); // Príspevky
-        break;
-      case 2:
-        router.push('/auth/registracia'); // Registrácia
-        break;
-      case 3:
-        router.push('/auth/prihlasenie'); // Prihlásenie
         break;
       default:
         break;
@@ -41,12 +37,14 @@ export default function NavBar() {
       <BottomNavigation
         showLabels
         value={value}
-        onChange={(event, newValue) => handleNavigation(newValue)} // Zavoláme handleNavigation
+        onChange={(event, newValue) => handleNavigation(newValue)}
       >
+        {/* Tlačidlá dostupné pre všetkých */}
         <BottomNavigationAction label="Domov" icon={<HomeIcon />} />
         <BottomNavigationAction label="Príspevky" icon={<PostAddIcon />} />
-        <BottomNavigationAction label="Registrácia" icon={<PersonAddIcon />} />
-        <BottomNavigationAction label="Prihlásenie" icon={<LoginIcon />} />
+
+        {/* Dynamické tlačidlá na základe autentifikácie */}
+        {session ? <AuthView /> : <NonAuthView />}
       </BottomNavigation>
     </Box>
   );
