@@ -1,7 +1,7 @@
 // src/components/NavBar.tsx
 
 "use client";
-
+import PersonIcon from '@mui/icons-material/Person';
 import * as React from "react";
 import { useRouter } from "next/navigation";
 import Box from "@mui/material/Box";
@@ -15,6 +15,14 @@ import { useSession } from "next-auth/react";
 import AuthView from "@/sections/AuthView";
 import NonAuthView from "@/sections/NonAuthView";
 import { useTheme } from "../components/ThemeContext";
+import PersonAddIcon from '@mui/icons-material/PersonAdd';
+import LoginIcon from '@mui/icons-material/Login';
+
+
+
+
+import LogoutIcon from '@mui/icons-material/Logout';
+import { signOut } from 'next-auth/react';
 
 export default function NavBar() {
   const [value, setValue] = React.useState(0);
@@ -36,32 +44,79 @@ export default function NavBar() {
     }
   };
 
+
+  const handleRegister = () => {
+    router.push('/auth/registracia'); // Presmerovanie na registráciu
+  };
+
+  const handleLogin = () => {
+    router.push('/auth/prihlasenie'); // Presmerovanie na prihlásenie
+  };
+
+  const handleLogout = () => {
+      signOut(); // Odhlásenie používateľa
+    };
+
+  const handleProfile = () => {
+    router.push('/profil'); // Presmerovanie na profil
+  };
+
   return (
-    <Box sx={{ position: "fixed", width: "100%", left: 0, right: 0, bottom: 0 }}>
+    <Box sx={{ position: 'fixed', bottom: 0, left: 0, right: 0 }}>
+      
       <BottomNavigation
         showLabels
         value={value}
         onChange={(event, newValue) => handleNavigation(newValue)}
         sx={{
           display: "flex",
-          justifyContent: "space-between", // Umožňuje rovnomerné rozmiestnenie tlačidiel
+          position: "center",
+           // Umožňuje rovnomerné rozmiestnenie tlačidiel
         }}
-      >
-        {/* Tlačidlá dostupné pre všetkých */}
-        <BottomNavigationAction label="Domov" icon={<HomeIcon />} />
-        <BottomNavigationAction label="Príspevky" icon={<PostAddIcon />} />
+      > 
+          {/* Tlačidlá dostupné pre všetkých */}
+          <BottomNavigationAction label="Domov" icon={<HomeIcon />} />
+          <BottomNavigationAction label="Príspevky" icon={<PostAddIcon />} />
 
-        {/* Dynamické tlačidlá na základe autentifikácie */}
-        {session ? <AuthView /> : <NonAuthView />}
+          {!session ? (
+            <BottomNavigationAction
+          label="Registrácia"
+          icon={<PersonAddIcon />}
+          onClick={handleRegister} // Presmerovanie na registráciu
+        />
+          ) : (
+                <BottomNavigationAction
+              label="Profil"
+              icon={<PersonIcon />}
+              onClick={handleProfile} // Presmerovanie na profil
+        />
+          )}
+
+          {!session ? (
+            <BottomNavigationAction
+            label="Prihlásenie"
+            icon={<LoginIcon />}
+            onClick={handleLogin} // Presmerovanie na prihlásenie
+          />
+          ) : (
+                <BottomNavigationAction
+              label="Odhlásiť"
+              icon={<LogoutIcon />}
+              onClick={handleLogout} // Odhlásenie
+        />
+          )}
 
         {/* Prepínač témy */}
         <BottomNavigationAction
           label={theme.palette.mode === "light" ? "Tmavý mód" : "Svetlý mód"}
           icon={theme.palette.mode === "light" ? <DarkModeIcon /> : <LightModeIcon />}
           onClick={toggleTheme} // Funkcia na prepnutie témy
-          sx={{ marginLeft: "auto" }} // Posunie prepínač témy na pravú stranu
+          sx={{ marginLeft: "fixed" }} // Posunie prepínač témy na pravú stranu
         />
       </BottomNavigation>
     </Box>
+    
   );
 }
+
+

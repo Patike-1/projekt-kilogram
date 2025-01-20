@@ -12,6 +12,7 @@ export default function HomePageNeprihlaseny() {
   const { data: session } = useSession(); // Získanie informácie o prihlásení
 
   return (
+    
     <Container maxWidth="lg" sx={{ mt: 4 }}>
       <Typography variant="h4" gutterBottom>
         Vitajte, 
