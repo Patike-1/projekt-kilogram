@@ -15,14 +15,14 @@ export default function HomePageNeprihlaseny() {
     
     <Container maxWidth="lg" sx={{ mt: 4 }}>
       <Typography variant="h4" gutterBottom>
-        Vitajte, 
+        Vitajte ,  
         {session ? (
           // Ak je používateľ prihlásený
           <span> {session.user?.name || "užívateľ"}, ste prihlásený.</span>
         ) : (
           // Ak nie je prihlásený
           <span>
-            Prihláste sa alebo registrujte sa
+             prihláste sa alebo registrujte sa
             
           </span>
         )}

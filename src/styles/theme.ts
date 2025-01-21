@@ -21,7 +21,7 @@ const lightTheme = createTheme({
   ...baseTheme,
   palette: {
     mode: 'light',
-    primary: { main: '#dc004e' }, // Red
+    primary: { main: '#f44336' }, // Red
     secondary: { main: '#1976d2' }, // Blue
     background: {
       default: '#f4f6f8', // Light gray
